@@ -119,13 +119,25 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+import { TopNav } from "@/components/huron/TopNav";
+import { Footer } from "@/components/huron/Footer";
+import { ReservationProvider } from "@/components/huron/ReservationContext";
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <ReservationProvider>
+        <div className="flex min-h-screen flex-col bg-background text-foreground selection:bg-bronze selection:text-primary-foreground">
+          <TopNav />
+          <main className="flex-1">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
+      </ReservationProvider>
     </QueryClientProvider>
   );
 }

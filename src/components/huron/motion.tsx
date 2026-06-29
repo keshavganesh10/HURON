@@ -2,21 +2,15 @@ import { motion, useScroll, useTransform, type MotionProps } from "framer-motion
 import { useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export function FadeUp({
-  children,
-  delay = 0,
-  className,
-  as: As = "div",
-  ...rest
-}: {
+type FadeProps = {
   children: ReactNode;
   delay?: number;
   className?: string;
-  as?: keyof typeof motion;
-} & MotionProps) {
-  const Comp = motion[As] as typeof motion.div;
+} & MotionProps;
+
+export function FadeUp({ children, delay = 0, className, ...rest }: FadeProps) {
   return (
-    <Comp
+    <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
@@ -25,7 +19,7 @@ export function FadeUp({
       {...rest}
     >
       {children}
-    </Comp>
+    </motion.div>
   );
 }
 
@@ -56,8 +50,16 @@ export function Stagger({
 
 export const staggerItem = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.2, 0.8, 0.2, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.2, 0.8, 0.2, 1] as const } },
 };
+
+export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <motion.div variants={staggerItem} className={className}>
+      {children}
+    </motion.div>
+  );
+}
 
 export function ParallaxHero({
   src,
@@ -84,7 +86,6 @@ export function ParallaxHero({
         alt={alt}
         style={{ y, scale }}
         className="absolute inset-0 h-[120%] w-full object-cover will-change-transform"
-        loading="eager"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/35 to-background" />
       <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-transparent" />
