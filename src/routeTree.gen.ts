@@ -9,38 +9,128 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PhilosophyRouteImport } from './routes/philosophy'
+import { Route as CapitalRouteImport } from './routes/capital'
+import { Route as AftercareRouteImport } from './routes/aftercare'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ResidencesIndexRouteImport } from './routes/residences.index'
+import { Route as ResidencesIdRouteImport } from './routes/residences.$id'
 
+const PhilosophyRoute = PhilosophyRouteImport.update({
+  id: '/philosophy',
+  path: '/philosophy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CapitalRoute = CapitalRouteImport.update({
+  id: '/capital',
+  path: '/capital',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AftercareRoute = AftercareRouteImport.update({
+  id: '/aftercare',
+  path: '/aftercare',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResidencesIndexRoute = ResidencesIndexRouteImport.update({
+  id: '/residences/',
+  path: '/residences/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResidencesIdRoute = ResidencesIdRouteImport.update({
+  id: '/residences/$id',
+  path: '/residences/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/aftercare': typeof AftercareRoute
+  '/capital': typeof CapitalRoute
+  '/philosophy': typeof PhilosophyRoute
+  '/residences/$id': typeof ResidencesIdRoute
+  '/residences/': typeof ResidencesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/aftercare': typeof AftercareRoute
+  '/capital': typeof CapitalRoute
+  '/philosophy': typeof PhilosophyRoute
+  '/residences/$id': typeof ResidencesIdRoute
+  '/residences': typeof ResidencesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/aftercare': typeof AftercareRoute
+  '/capital': typeof CapitalRoute
+  '/philosophy': typeof PhilosophyRoute
+  '/residences/$id': typeof ResidencesIdRoute
+  '/residences/': typeof ResidencesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/aftercare'
+    | '/capital'
+    | '/philosophy'
+    | '/residences/$id'
+    | '/residences/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/aftercare'
+    | '/capital'
+    | '/philosophy'
+    | '/residences/$id'
+    | '/residences'
+  id:
+    | '__root__'
+    | '/'
+    | '/aftercare'
+    | '/capital'
+    | '/philosophy'
+    | '/residences/$id'
+    | '/residences/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AftercareRoute: typeof AftercareRoute
+  CapitalRoute: typeof CapitalRoute
+  PhilosophyRoute: typeof PhilosophyRoute
+  ResidencesIdRoute: typeof ResidencesIdRoute
+  ResidencesIndexRoute: typeof ResidencesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/philosophy': {
+      id: '/philosophy'
+      path: '/philosophy'
+      fullPath: '/philosophy'
+      preLoaderRoute: typeof PhilosophyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/capital': {
+      id: '/capital'
+      path: '/capital'
+      fullPath: '/capital'
+      preLoaderRoute: typeof CapitalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/aftercare': {
+      id: '/aftercare'
+      path: '/aftercare'
+      fullPath: '/aftercare'
+      preLoaderRoute: typeof AftercareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +138,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/residences/': {
+      id: '/residences/'
+      path: '/residences'
+      fullPath: '/residences/'
+      preLoaderRoute: typeof ResidencesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/residences/$id': {
+      id: '/residences/$id'
+      path: '/residences/$id'
+      fullPath: '/residences/$id'
+      preLoaderRoute: typeof ResidencesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AftercareRoute: AftercareRoute,
+  CapitalRoute: CapitalRoute,
+  PhilosophyRoute: PhilosophyRoute,
+  ResidencesIdRoute: ResidencesIdRoute,
+  ResidencesIndexRoute: ResidencesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
