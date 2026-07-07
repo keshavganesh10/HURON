@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Activity, Bell, Check, CircleDot, GraduationCap, ShieldCheck, Thermometer, Truck, Wifi, Wrench } from "lucide-react";
+import { Activity, AlertTriangle, Bell, Check, CircleDot, GraduationCap, Radio, ShieldCheck, Thermometer, Truck, Wifi, Wrench } from "lucide-react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
 import logoIcon from "@/assets/huron-icon.png.asset.json";
@@ -38,6 +39,7 @@ function Aftercare() {
       </ParallaxHero>
 
       <EngineerFleet />
+      <DigitalTwin />
       <SandboxApp />
     </>
   );
