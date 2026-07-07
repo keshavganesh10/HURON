@@ -1,15 +1,16 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowRight, Bath, Bed, ChevronLeft, ChevronRight, MapPin, Maximize2, Sparkle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FadeUp, Stagger, StaggerItem } from "@/components/huron/motion";
-import { RESIDENCES, REGIONS, type Region, type Residence } from "@/lib/huron-data";
+import { RESIDENCES, FILTERS, filterResidences, type FilterKey, type Residence } from "@/lib/huron-data";
+import { PropertyModal } from "@/components/huron/PropertyModal";
 
 export const Route = createFileRoute("/residences/")({
   head: () => ({
     meta: [
       { title: "The Residence Portfolio — Huron" },
-      { name: "description", content: "Four flagship residences across Cheshire and central Manchester. Each architected, financed and stewarded under a single Huron signature." },
+      { name: "description", content: "Five flagship residences across Cheshire and Manchester. Each architected, financed and stewarded under a single Huron signature." },
       { property: "og:title", content: "The Residence Portfolio — Huron" },
       { property: "og:description", content: "Cheshire estates and Manchester penthouses, available by invitation." },
     ],
@@ -18,70 +19,78 @@ export const Route = createFileRoute("/residences/")({
 });
 
 function Portfolio() {
-  const [region, setRegion] = useState<Region>("cheshire");
-  const filtered = useMemo(() => RESIDENCES.filter((r) => r.region === region), [region]);
+  const [filter, setFilter] = useState<FilterKey>("all");
+  const [openId, setOpenId] = useState<string | null>(null);
+  const filtered = useMemo(() => filterResidences(filter), [filter]);
+  const openResidence = openId ? RESIDENCES.find((r) => r.id === openId) ?? null : null;
 
   return (
-    <section className="pt-32 pb-24 sm:pt-40 sm:pb-32">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
-        <FadeUp className="max-w-3xl">
-          <span className="eyebrow">The Residence Portfolio</span>
-          <h1 className="mt-4 font-display text-5xl tracking-[-0.02em] text-foreground sm:text-6xl">
-            Reserved <span className="text-gradient-bronze italic">for the few.</span>
-          </h1>
-          <p className="mt-6 text-base font-light leading-relaxed text-foreground/65">
-            Every residence below is delivered against a fixed price and a single
-            contract. Specifications, materials and engineering ledgers are
-            transparent, indemnified, and inheritable.
-          </p>
-        </FadeUp>
+    <>
+      <section className="pt-32 pb-24 sm:pt-40 sm:pb-32">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+          <FadeUp className="max-w-3xl">
+            <span className="eyebrow">The Residence Portfolio</span>
+            <h1 className="mt-4 font-display text-5xl tracking-[-0.02em] text-foreground sm:text-6xl">
+              Reserved <span className="text-gradient-bronze italic">for the few.</span>
+            </h1>
+            <p className="mt-6 text-base font-light leading-relaxed text-foreground/65">
+              Every residence below is delivered against a fixed price and a single contract. Specifications, materials and engineering ledgers are transparent, indemnified, and inheritable.
+            </p>
+          </FadeUp>
+        </div>
 
-        <div className="mt-12 flex flex-wrap gap-2 border-b border-hairline">
-          {REGIONS.map((r) => (
-            <button
-              key={r.id}
-              onClick={() => setRegion(r.id)}
-              className={cn(
-                "relative px-1 py-4 text-sm font-light tracking-wide transition-colors sm:px-2",
-                region === r.id ? "text-foreground" : "text-foreground/45 hover:text-foreground/80",
-              )}
-            >
-              <span className="px-3">{r.label}</span>
-              {region === r.id && <span className="absolute inset-x-0 -bottom-px h-px bg-bronze" />}
-            </button>
-          ))}
-          <div className="ml-auto py-4 font-mono text-xs text-foreground/45">
-            {filtered.length} residences · updated live
+        <div className="sticky top-16 z-30 mt-12 border-y border-hairline bg-background/85 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-[1400px] items-center gap-1 overflow-x-auto px-6 py-3 lg:px-10">
+            {FILTERS.map((f) => (
+              <button
+                key={f.id}
+                onClick={() => setFilter(f.id)}
+                className={cn(
+                  "shrink-0 border px-4 py-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] transition-all",
+                  filter === f.id
+                    ? "border-bronze bg-bronze/15 text-bronze-glow"
+                    : "border-hairline text-foreground/60 hover:border-bronze/40 hover:text-foreground",
+                )}
+              >
+                {f.label}
+              </button>
+            ))}
+            <div className="ml-auto shrink-0 py-1 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-foreground/45">
+              {filtered.length} live
+            </div>
           </div>
         </div>
 
-        <Stagger className="mt-12 grid gap-8 md:grid-cols-2">
-          {filtered.map((r) => (
-            <StaggerItem key={r.id}>
-              <ResidenceCard residence={r} />
-            </StaggerItem>
-          ))}
-        </Stagger>
-      </div>
-    </section>
+        <div className="mx-auto max-w-[1400px] px-6 pt-12 lg:px-10">
+          <Stagger className="grid gap-8 md:grid-cols-2">
+            {filtered.map((r) => (
+              <StaggerItem key={r.id}>
+                <ResidenceCard residence={r} onOpen={() => setOpenId(r.id)} />
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </div>
+      </section>
+
+      <PropertyModal residence={openResidence} onClose={() => setOpenId(null)} />
+    </>
   );
 }
 
-function ResidenceCard({ residence }: { residence: Residence }) {
+function ResidenceCard({ residence, onOpen }: { residence: Residence; onOpen: () => void }) {
   const [idx, setIdx] = useState(0);
   const total = residence.images.length;
-  const next = (e: React.MouseEvent) => { e.preventDefault(); setIdx((i) => (i + 1) % total); };
-  const prev = (e: React.MouseEvent) => { e.preventDefault(); setIdx((i) => (i - 1 + total) % total); };
+  const next = (e: React.MouseEvent) => { e.stopPropagation(); setIdx((i) => (i + 1) % total); };
+  const prev = (e: React.MouseEvent) => { e.stopPropagation(); setIdx((i) => (i - 1 + total) % total); };
 
   const statusTone =
-    residence.status === "Final Handover Checks" ? "text-emerald-300/90" :
+    residence.status === "Final Handover" || residence.status === "Move-In Ready" ? "text-emerald-300/90" :
     residence.status === "Reserved" ? "text-foreground/50" : "text-bronze-glow";
 
   return (
-    <Link
-      to="/residences/$id"
-      params={{ id: residence.id }}
-      className="group relative block overflow-hidden border border-hairline bg-card transition-colors hover:border-bronze/40"
+    <button
+      onClick={onOpen}
+      className="group relative block w-full overflow-hidden border border-hairline bg-card text-left transition-colors hover:border-bronze/40"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         {residence.images.map((src, i) => (
@@ -148,10 +157,10 @@ function ResidenceCard({ residence }: { residence: Residence }) {
         </ul>
 
         <div className="mt-7 inline-flex w-full items-center justify-between gap-3 border border-bronze/40 bg-bronze/10 px-5 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-bronze-glow transition-all group-hover:border-bronze group-hover:bg-bronze/20">
-          View Residence Dossier
+          Open Full Dossier
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
         </div>
       </div>
-    </Link>
+    </button>
   );
 }
