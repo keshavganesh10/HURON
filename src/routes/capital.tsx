@@ -62,6 +62,14 @@ function Capital() {
                 facility against your existing assets. A Huron Private Capital
                 Director will refine the terms within one business day.
               </p>
+              {active && (
+                <div className="mt-6 inline-flex items-center gap-3 border border-bronze/40 bg-bronze/10 px-4 py-2.5">
+                  <Fingerprint className="h-4 w-4 text-bronze" />
+                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-bronze-glow">
+                    Modelled against {active.name} · {active.price}
+                  </span>
+                </div>
+              )}
 
               <div className="mt-10 space-y-8">
                 <Slider
