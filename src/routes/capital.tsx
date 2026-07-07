@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { ArrowRight, Banknote, Clock, Lock, ShieldCheck } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowRight, Banknote, Clock, Fingerprint, Lock, ShieldCheck } from "lucide-react";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
+import { useActiveProperty } from "@/stores/active-property";
 import heroPavilion from "@/assets/hero-pavilion.jpg";
 
 export const Route = createFileRoute("/capital")({
@@ -17,9 +18,16 @@ export const Route = createFileRoute("/capital")({
 });
 
 function Capital() {
+  const active = useActiveProperty((s) => s.active);
   const [estate, setEstate] = useState(6500000);
   const [ltv, setLtv] = useState(55);
   const [term, setTerm] = useState(18);
+
+  useEffect(() => {
+    if (active) {
+      setEstate(Math.max(active.priceValue * 1.4, 1_000_000));
+    }
+  }, [active]);
 
   const facility = useMemo(() => Math.round((estate * ltv) / 100), [estate, ltv]);
   const monthly = useMemo(() => Math.round((facility * 0.0079)), [facility]);
