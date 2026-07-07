@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Activity, Bell, Check, CircleDot, GraduationCap, ShieldCheck, Thermometer, Truck, Wifi, Wrench } from "lucide-react";
+import { Activity, AlertTriangle, Bell, Check, CircleDot, GraduationCap, Radio, ShieldCheck, Thermometer, Truck, Wifi, Wrench } from "lucide-react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
 import logoIcon from "@/assets/huron-icon.png.asset.json";
@@ -38,6 +39,7 @@ function Aftercare() {
       </ParallaxHero>
 
       <EngineerFleet />
+      <DigitalTwin />
       <SandboxApp />
     </>
   );
@@ -242,5 +244,156 @@ function PhoneCard({ icon: Icon, label, value, sub }: { icon: typeof Thermometer
       <div className="mt-1.5 font-display text-xl text-foreground">{value}</div>
       <div className="font-mono text-[0.6rem] uppercase tracking-[0.15em] text-bronze">{sub}</div>
     </div>
+  );
+}
+
+const TWIN_ROOMS = [
+  { id: "principal", label: "Principal Suite", x: 20, y: 20, w: 200, h: 130, spec: "R-9.2 envelope · MERV-16 filtration · 21.5°C" },
+  { id: "library", label: "Library", x: 230, y: 20, w: 130, h: 130, spec: "STC 68 acoustic · circadian lighting" },
+  { id: "kitchen", label: "Kitchen", x: 370, y: 20, w: 160, h: 130, spec: "Miele Master-Suite · induction telemetry live" },
+  { id: "living", label: "Living Volume", x: 20, y: 160, w: 340, h: 140, spec: "Lutron QSX · 24 scenes · sun-tracking shades" },
+  { id: "guest", label: "Guest Suite", x: 370, y: 160, w: 160, h: 140, spec: "Independent HVAC zone · 20.8°C" },
+  { id: "vault", label: "Wine Vault", x: 20, y: 310, w: 160, h: 70, spec: "13.1°C · humidity 68% · stable 48h" },
+  { id: "hvac", label: "HVAC Plant", x: 190, y: 310, w: 170, h: 70, spec: "VRF · pressure variance 3.2% · flag raised" },
+  { id: "security", label: "Perimeter", x: 370, y: 310, w: 160, h: 70, spec: "All zones armed · 42 sensors nominal" },
+];
+
+type LogEvent = {
+  time: string;
+  title: string;
+  body: string;
+  tone: "alert" | "action" | "resolved" | "info";
+};
+
+const AGENTIC_LOG: LogEvent[] = [
+  { time: "13:41", title: "System Alert · HVAC Plant", body: "HVAC pressure variance detected at 3.2% above nominal on the secondary loop.", tone: "alert" },
+  { time: "13:42", title: "Diagnostic · Sensor Mesh", body: "Autonomous cross-reference against 12 months of telemetry. Fault isolated to expansion valve.", tone: "info" },
+  { time: "13:43", title: "Dispatch · Engineer Fleet", body: "Huron Engineer Marcus assigned. Parts pulled from residence ledger. ETA 14:00.", tone: "action" },
+  { time: "13:44", title: "Owner Notification", body: "Priority notice issued to the Huron App. Access authorisation requested via biometric passkey.", tone: "info" },
+  { time: "14:02", title: "Resolved · First-Time Fix", body: "Expansion valve replaced. Loop rebalanced to 0.4% variance. Logged to lifetime engineering record.", tone: "resolved" },
+];
+
+function DigitalTwin() {
+  const [hovered, setHovered] = useState<string | null>("hvac");
+  const active = TWIN_ROOMS.find((r) => r.id === hovered) ?? TWIN_ROOMS[6];
+
+  return (
+    <section className="relative border-t border-hairline py-24 sm:py-32">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+        <FadeUp className="max-w-3xl">
+          <span className="eyebrow">Agentic AI · Digital Twin</span>
+          <h2 className="mt-4 font-display text-4xl tracking-tight text-foreground sm:text-5xl">
+            The residence <span className="text-gradient-bronze italic">that resolves itself.</span>
+          </h2>
+          <p className="mt-6 text-base font-light leading-relaxed text-foreground/70">
+            A live digital twin of every Huron residence — 300+ sensor points streaming into an
+            agentic maintenance loop that detects, dispatches and resolves faults before you notice them.
+          </p>
+        </FadeUp>
+
+        <div className="mt-14 grid gap-8 lg:grid-cols-[1.15fr_1fr]">
+          <div className="border border-hairline bg-card p-6">
+            <div className="flex items-center justify-between border-b border-hairline pb-4">
+              <div className="flex items-center gap-2">
+                <Radio className="h-3.5 w-3.5 text-bronze status-dot" />
+                <span className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-bronze">Live · Digital Twin</span>
+              </div>
+              <span className="font-mono text-[0.65rem] text-foreground/50">42 sensors · last sync 2s ago</span>
+            </div>
+            <svg viewBox="0 0 550 400" className="mt-5 h-auto w-full" onMouseLeave={() => setHovered("hvac")}>
+              <defs>
+                <pattern id="twin-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--color-hairline)" strokeWidth="0.4" />
+                </pattern>
+              </defs>
+              <rect width="550" height="400" fill="url(#twin-grid)" opacity="0.4" />
+              {TWIN_ROOMS.map((room) => {
+                const isActive = hovered === room.id;
+                const isAlert = room.id === "hvac";
+                return (
+                  <g key={room.id} onMouseEnter={() => setHovered(room.id)}>
+                    <rect
+                      x={room.x} y={room.y} width={room.w} height={room.h}
+                      fill={isActive ? "var(--color-bronze)" : "var(--color-ink-elevated)"}
+                      fillOpacity={isActive ? 0.35 : 0.9}
+                      stroke={isAlert ? "var(--color-bronze-glow)" : isActive ? "var(--color-bronze)" : "var(--color-hairline)"}
+                      strokeWidth={isActive || isAlert ? 1.5 : 1}
+                      className="transition-all duration-300 cursor-pointer"
+                    />
+                    <text
+                      x={room.x + room.w / 2} y={room.y + room.h / 2}
+                      textAnchor="middle" dominantBaseline="middle"
+                      fill={isActive ? "var(--color-bronze-glow)" : "var(--color-foreground)"}
+                      fillOpacity={isActive ? 1 : 0.6}
+                      fontSize="10" fontFamily="var(--font-mono)"
+                      className="pointer-events-none uppercase tracking-[0.15em]"
+                    >
+                      {room.label}
+                    </text>
+                    {isAlert && (
+                      <circle
+                        cx={room.x + room.w - 12} cy={room.y + 12} r="4"
+                        fill="var(--color-bronze-glow)"
+                        className="status-dot"
+                      />
+                    )}
+                  </g>
+                );
+              })}
+            </svg>
+            <div className="mt-4 border-t border-hairline pt-4">
+              <div className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-bronze">
+                {active.label}
+              </div>
+              <div className="mt-1 text-sm font-light text-foreground/80">{active.spec}</div>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center gap-2 border border-bronze/30 bg-bronze/5 px-4 py-3">
+              <AlertTriangle className="h-4 w-4 text-bronze-glow" />
+              <span className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-bronze-glow">
+                Agentic Predictive Maintenance · Live Log
+              </span>
+            </div>
+
+            <ol className="relative mt-6 space-y-6 border-l border-hairline pl-6">
+              {AGENTIC_LOG.map((e, i) => (
+                <motion.li
+                  key={e.time + e.title}
+                  initial={{ opacity: 0, x: -12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="relative"
+                >
+                  <span
+                    className={cn(
+                      "absolute -left-[29px] top-1 grid h-4 w-4 place-items-center rounded-full border",
+                      e.tone === "alert" && "border-bronze-glow bg-bronze-glow/30 status-dot",
+                      e.tone === "action" && "border-bronze bg-bronze/30",
+                      e.tone === "resolved" && "border-emerald-300/70 bg-emerald-300/20",
+                      e.tone === "info" && "border-hairline bg-background",
+                    )}
+                  />
+                  <div className="flex items-baseline gap-3">
+                    <span className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-foreground/45">{e.time}</span>
+                    <span
+                      className={cn(
+                        "font-display text-lg",
+                        e.tone === "resolved" ? "text-emerald-300/90" : "text-foreground",
+                      )}
+                    >
+                      {e.title}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm font-light leading-relaxed text-foreground/65">{e.body}</p>
+                </motion.li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

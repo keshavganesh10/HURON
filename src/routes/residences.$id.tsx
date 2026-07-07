@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ArrowLeft, ArrowRight, Bath, Bed, MapPin, Maximize2, ShieldCheck, Sparkle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FadeUp, Stagger, StaggerItem } from "@/components/huron/motion";
-import { getResidence, RESIDENCES } from "@/lib/huron-data";
+import { getResidence, RESIDENCES, type Residence } from "@/lib/huron-data";
 import { useReservation } from "@/components/huron/ReservationContext";
 
 export const Route = createFileRoute("/residences/$id")({
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/residences/$id")({
 });
 
 function ResidenceDetail() {
-  const r = Route.useLoaderData();
+  const r = Route.useLoaderData() as Residence;
   const [hero, setHero] = useState(0);
   const { reserve } = useReservation();
 

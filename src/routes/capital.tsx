@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { ArrowRight, Banknote, Clock, Lock, ShieldCheck } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowRight, Banknote, Clock, Fingerprint, Lock, ShieldCheck } from "lucide-react";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
+import { useActiveProperty } from "@/stores/active-property";
 import heroPavilion from "@/assets/hero-pavilion.jpg";
 
 export const Route = createFileRoute("/capital")({
@@ -17,9 +18,16 @@ export const Route = createFileRoute("/capital")({
 });
 
 function Capital() {
+  const active = useActiveProperty((s) => s.active);
   const [estate, setEstate] = useState(6500000);
   const [ltv, setLtv] = useState(55);
   const [term, setTerm] = useState(18);
+
+  useEffect(() => {
+    if (active) {
+      setEstate(Math.max(active.priceValue * 1.4, 1_000_000));
+    }
+  }, [active]);
 
   const facility = useMemo(() => Math.round((estate * ltv) / 100), [estate, ltv]);
   const monthly = useMemo(() => Math.round((facility * 0.0079)), [facility]);
@@ -54,6 +62,14 @@ function Capital() {
                 facility against your existing assets. A Huron Private Capital
                 Director will refine the terms within one business day.
               </p>
+              {active && (
+                <div className="mt-6 inline-flex items-center gap-3 border border-bronze/40 bg-bronze/10 px-4 py-2.5">
+                  <Fingerprint className="h-4 w-4 text-bronze" />
+                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-bronze-glow">
+                    Modelled against {active.name} · {active.price}
+                  </span>
+                </div>
+              )}
 
               <div className="mt-10 space-y-8">
                 <Slider
@@ -86,7 +102,10 @@ function Capital() {
               </div>
             </FadeUp>
 
-            <FadeUp delay={0.1} className="border border-bronze/30 bg-card p-10 shadow-luxe">
+            <FadeUp delay={0.1} className="relative border border-bronze/30 bg-card p-10 shadow-luxe">
+              <div className="absolute right-6 top-6 grid h-11 w-11 place-items-center rounded-full border border-bronze/40 bg-background/60" title="Huron Vault · Biometric session">
+                <Fingerprint className="h-5 w-5 text-bronze-glow" strokeWidth={1.25} />
+              </div>
               <div className="flex items-center gap-2 text-bronze">
                 <Banknote className="h-4 w-4" />
                 <span className="font-mono text-[0.65rem] uppercase tracking-[0.22em]">Indicative Facility</span>

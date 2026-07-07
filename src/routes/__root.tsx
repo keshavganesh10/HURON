@@ -122,6 +122,25 @@ function RootShell({ children }: { children: ReactNode }) {
 import { TopNav } from "@/components/huron/TopNav";
 import { Footer } from "@/components/huron/Footer";
 import { ReservationProvider } from "@/components/huron/ReservationContext";
+import { AnimatePresence, motion } from "framer-motion";
+import { useRouterState } from "@tanstack/react-router";
+
+function AnimatedOutlet() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={pathname}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -8 }}
+        transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1] }}
+      >
+        <Outlet />
+      </motion.div>
+    </AnimatePresence>
+  );
+}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
@@ -132,8 +151,7 @@ function RootComponent() {
         <div className="flex min-h-screen flex-col bg-background text-foreground selection:bg-bronze selection:text-primary-foreground">
           <TopNav />
           <main className="flex-1">
-            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-            <Outlet />
+            <AnimatedOutlet />
           </main>
           <Footer />
         </div>
