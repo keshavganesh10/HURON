@@ -102,7 +102,10 @@ function Capital() {
               </div>
             </FadeUp>
 
-            <FadeUp delay={0.1} className="border border-bronze/30 bg-card p-10 shadow-luxe">
+            <FadeUp delay={0.1} className="relative border border-bronze/30 bg-card p-10 shadow-luxe">
+              <div className="absolute right-6 top-6 grid h-11 w-11 place-items-center rounded-full border border-bronze/40 bg-background/60" title="Huron Vault · Biometric session">
+                <Fingerprint className="h-5 w-5 text-bronze-glow" strokeWidth={1.25} />
+              </div>
               <div className="flex items-center gap-2 text-bronze">
                 <Banknote className="h-4 w-4" />
                 <span className="font-mono text-[0.65rem] uppercase tracking-[0.22em]">Indicative Facility</span>
