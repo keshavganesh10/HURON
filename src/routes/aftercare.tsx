@@ -4,6 +4,7 @@ import { Activity, AlertTriangle, Bell, Check, CircleDot, GraduationCap, Radio, 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
+import { DayInTheLife } from "@/components/huron/DayInTheLife";
 import logoIcon from "@/assets/huron-icon.png.asset.json";
 import heroPavilion from "@/assets/hero-pavilion.jpg";
 
@@ -39,6 +40,7 @@ function Aftercare() {
       </ParallaxHero>
 
       <EngineerFleet />
+      <DayInTheLife />
       <DigitalTwin />
       <SandboxApp />
     </>

@@ -122,6 +122,7 @@ function RootShell({ children }: { children: ReactNode }) {
 import { TopNav } from "@/components/huron/TopNav";
 import { Footer } from "@/components/huron/Footer";
 import { ReservationProvider } from "@/components/huron/ReservationContext";
+import { AudioProvider } from "@/components/huron/audio";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouterState } from "@tanstack/react-router";
 
@@ -147,15 +148,17 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReservationProvider>
-        <div className="flex min-h-screen flex-col bg-background text-foreground selection:bg-bronze selection:text-primary-foreground">
-          <TopNav />
-          <main className="flex-1">
-            <AnimatedOutlet />
-          </main>
-          <Footer />
-        </div>
-      </ReservationProvider>
+      <AudioProvider>
+        <ReservationProvider>
+          <div className="flex min-h-screen flex-col bg-background text-foreground selection:bg-bronze selection:text-primary-foreground">
+            <TopNav />
+            <main className="flex-1">
+              <AnimatedOutlet />
+            </main>
+            <Footer />
+          </div>
+        </ReservationProvider>
+      </AudioProvider>
     </QueryClientProvider>
   );
 }

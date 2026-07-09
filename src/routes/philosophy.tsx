@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Hammer, Wallet, Scale, HeartHandshake, ShieldCheck, Leaf, Thermometer, Building2 } from "lucide-react";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
+import { FrictionlessTimeline } from "@/components/huron/FrictionlessTimeline";
 import heroPavilion from "@/assets/hero-pavilion.jpg";
 
 export const Route = createFileRoute("/philosophy")({
@@ -37,6 +38,9 @@ function Philosophy() {
           </FadeUp>
         </div>
       </ParallaxHero>
+
+      <FrictionlessTimeline />
+
 
       <section className="border-t border-hairline py-24 sm:py-32">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
