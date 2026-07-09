@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { FadeUp, Stagger, StaggerItem } from "@/components/huron/motion";
 import { getResidence, RESIDENCES, type Residence } from "@/lib/huron-data";
 import { useReservation } from "@/components/huron/ReservationContext";
+import { DigitalTwin3D } from "@/components/huron/DigitalTwin3D";
 
 export const Route = createFileRoute("/residences/$id")({
   head: ({ params }) => {
@@ -116,6 +117,26 @@ function ResidenceDetail() {
               </div>
             </FadeUp>
           </div>
+        </div>
+      </section>
+
+      <section className="border-t border-hairline py-20">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+          <FadeUp className="max-w-2xl">
+            <span className="eyebrow">Interactive Digital Twin</span>
+            <h2 className="mt-4 font-display text-3xl text-foreground sm:text-4xl">
+              Step inside. <span className="text-gradient-bronze italic">Then see through the walls.</span>
+            </h2>
+            <p className="mt-4 text-sm font-light leading-relaxed text-foreground/70">
+              A live WebGL twin of the residence. Rotate freely, sweep the sun
+              from dawn to dusk, or switch to the engineering x-ray to inspect
+              the R-9.2 insulation core, the post-tensioned structural spine
+              and the six-borehole geothermal loop beneath the floor plate.
+            </p>
+          </FadeUp>
+          <FadeUp delay={0.1} className="mt-8">
+            <DigitalTwin3D />
+          </FadeUp>
         </div>
       </section>
 
