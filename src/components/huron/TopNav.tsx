@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoIcon from "@/assets/huron-icon.png.asset.json";
+import { AmbientToggle } from "@/components/huron/audio";
 
 const LINKS = [
   { to: "/residences", label: "Residences" },
@@ -50,6 +51,7 @@ export function TopNav() {
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-bronze transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
+            <AmbientToggle />
             <Link
               to="/residences"
               className="group inline-flex items-center gap-2 rounded-sm border border-bronze/40 bg-bronze/10 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.2em] text-bronze-glow transition-all hover:border-bronze hover:bg-bronze/20"
@@ -59,9 +61,13 @@ export function TopNav() {
             </Link>
           </nav>
 
-          <button aria-label="Open menu" className="md:hidden" onClick={() => setOpen(true)}>
-            <Menu className="h-6 w-6 text-foreground" />
-          </button>
+          <div className="flex items-center gap-3 md:hidden">
+            <AmbientToggle />
+            <button aria-label="Open menu" onClick={() => setOpen(true)}>
+              <Menu className="h-6 w-6 text-foreground" />
+            </button>
+          </div>
+
         </div>
       </header>
 
