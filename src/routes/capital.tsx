@@ -171,6 +171,8 @@ function Capital() {
           </Stagger>
         </div>
       </section>
+
+      <CostOfFriction />
     </>
   );
 }
