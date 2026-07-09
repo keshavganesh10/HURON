@@ -39,6 +39,9 @@ function Philosophy() {
         </div>
       </ParallaxHero>
 
+      <FrictionlessTimeline />
+
+
       <section className="border-t border-hairline py-24 sm:py-32">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
           <FadeUp className="max-w-2xl">

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, Banknote, Clock, Fingerprint, Lock, ShieldCheck } from "lucide-react";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
+import { CostOfFriction } from "@/components/huron/CostOfFriction";
 import { useActiveProperty } from "@/stores/active-property";
 import heroPavilion from "@/assets/hero-pavilion.jpg";
 
