@@ -215,7 +215,7 @@ function Callout({ position, label, tone }: { position: [number, number, number]
   );
 }
 
-function Sun({ tod }: { tod: number }) {
+function SunLight({ tod }: { tod: number }) {
   const a = tod * Math.PI; // 0..π
   const x = Math.cos(a) * 10;
   const y = Math.sin(a) * 8 + 1;
@@ -286,7 +286,7 @@ export function DigitalTwin3D() {
           <Canvas shadows camera={{ position: [7, 4.5, 8], fov: 40 }} dpr={[1, 2]} gl={{ antialias: true }}>
             <color attach="background" args={["#0d0e11"]} />
             <fog attach="fog" args={["#0d0e11", 12, 26]} />
-            <Sun tod={tod} />
+            <SunLight tod={tod} />
             <Pavilion mode={mode} tod={tod} />
             <Environment preset="sunset" />
             <OrbitControls
