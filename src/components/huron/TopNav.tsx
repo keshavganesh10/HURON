@@ -53,6 +53,8 @@ export function TopNav() {
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-bronze transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
+            <div className="mx-1 h-4 w-px bg-hairline" />
+            <ViewerModeToggle />
             <AmbientToggle />
             <Link
               to="/residences"
