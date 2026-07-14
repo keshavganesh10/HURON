@@ -66,6 +66,7 @@ export function TopNav() {
           </nav>
 
           <div className="flex items-center gap-3 md:hidden">
+            <ViewerModeToggle compact />
             <AmbientToggle />
             <button aria-label="Open menu" onClick={() => setOpen(true)}>
               <Menu className="h-6 w-6 text-foreground" />
