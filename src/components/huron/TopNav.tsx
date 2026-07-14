@@ -4,12 +4,14 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoIcon from "@/assets/huron-icon.png.asset.json";
 import { AmbientToggle } from "@/components/huron/audio";
+import { ViewerModeToggle } from "@/components/huron/ViewerModeToggle";
 
 const LINKS = [
   { to: "/residences", label: "Residences" },
   { to: "/philosophy", label: "Philosophy" },
   { to: "/capital", label: "Private Capital" },
   { to: "/aftercare", label: "Aftercare" },
+  { to: "/investors", label: "Investors" },
 ] as const;
 
 export function TopNav() {
