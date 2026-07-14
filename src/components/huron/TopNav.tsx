@@ -4,12 +4,14 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoIcon from "@/assets/huron-icon.png.asset.json";
 import { AmbientToggle } from "@/components/huron/audio";
+import { ViewerModeToggle } from "@/components/huron/ViewerModeToggle";
 
 const LINKS = [
   { to: "/residences", label: "Residences" },
   { to: "/philosophy", label: "Philosophy" },
   { to: "/capital", label: "Private Capital" },
   { to: "/aftercare", label: "Aftercare" },
+  { to: "/investors", label: "Investors" },
 ] as const;
 
 export function TopNav() {
@@ -51,6 +53,8 @@ export function TopNav() {
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-bronze transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
+            <div className="mx-1 h-4 w-px bg-hairline" />
+            <ViewerModeToggle />
             <AmbientToggle />
             <Link
               to="/residences"
@@ -62,6 +66,7 @@ export function TopNav() {
           </nav>
 
           <div className="flex items-center gap-3 md:hidden">
+            <ViewerModeToggle compact />
             <AmbientToggle />
             <button aria-label="Open menu" onClick={() => setOpen(true)}>
               <Menu className="h-6 w-6 text-foreground" />

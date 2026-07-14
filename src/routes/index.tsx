@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Hammer, HeartHandshake, Scale, Wallet } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
+import { useViewerMode } from "@/stores/viewer-mode";
 import heroPavilion from "@/assets/hero-pavilion.jpg";
 
 export const Route = createFileRoute("/")({
@@ -17,6 +19,8 @@ export const Route = createFileRoute("/")({
 });
 
 function HuronLanding() {
+  const mode = useViewerMode((s) => s.mode);
+  const isInvestor = mode === "investor";
   return (
     <>
       <ParallaxHero src={heroPavilion} alt="A modern luxury Huron pavilion at dusk" className="min-h-[100svh]">
@@ -24,24 +28,59 @@ function HuronLanding() {
           <FadeUp className="max-w-3xl">
             <div className="mb-8 flex items-center gap-3">
               <span className="h-px w-12 bg-bronze" />
-              <span className="eyebrow">A Private Residential Ecosystem</span>
+              <span className="eyebrow">
+                {isInvestor ? "Investor Relations · Confidential" : "A Private Residential Ecosystem"}
+              </span>
             </div>
-            <h1 className="font-display text-5xl leading-[1.02] tracking-[-0.02em] text-foreground sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-              Homes by Huron.{" "}
-              <span className="block text-gradient-bronze italic">The Art of Frictionless Living.</span>
-            </h1>
+            <AnimatePresence mode="wait">
+              {isInvestor ? (
+                <motion.h1
+                  key="inv-h1"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
+                  className="font-display text-4xl leading-[1.05] tracking-[-0.02em] text-foreground sm:text-5xl md:text-6xl lg:text-[4.25rem]"
+                >
+                  Huron:{" "}
+                  <span className="text-gradient-bronze italic">
+                    the highly scalable, vertically integrated real estate ecosystem.
+                  </span>{" "}
+                  Capturing the full value chain across premium development, private lending,
+                  and high-margin subscription aftercare.
+                </motion.h1>
+              ) : (
+                <motion.h1
+                  key="cli-h1"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
+                  className="font-display text-5xl leading-[1.02] tracking-[-0.02em] text-foreground sm:text-6xl md:text-7xl lg:text-[5.5rem]"
+                >
+                  Homes by Huron.{" "}
+                  <span className="block text-gradient-bronze italic">The Art of Frictionless Living.</span>
+                </motion.h1>
+              )}
+            </AnimatePresence>
             <p className="mt-8 max-w-xl text-base font-light leading-relaxed text-foreground/70 sm:text-lg">
-              A vertically integrated ecosystem eliminating the middleman. We are
-              the builder, lender, and lifelong engineer — unified to protect your
-              wealth and restore your time.
+              {isInvestor
+                ? "A single balance sheet uniting builder, private lender and lifetime engineer — engineered to capture every discrete profit pool a traditional developer surrenders."
+                : "A vertically integrated ecosystem eliminating the middleman. We are the builder, lender, and lifelong engineer — unified to protect your wealth and restore your time."}
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link to="/residences" className="group inline-flex items-center justify-center gap-3 gradient-bronze rounded-sm px-7 py-4 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground shadow-luxe transition-all hover:brightness-110">
-                Explore the Portfolio
+              <Link
+                to={isInvestor ? "/investors" : "/residences"}
+                className="group inline-flex items-center justify-center gap-3 gradient-bronze rounded-sm px-7 py-4 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground shadow-luxe transition-all hover:brightness-110"
+              >
+                {isInvestor ? "Review the Thesis" : "Explore the Portfolio"}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link to="/aftercare" className="group inline-flex items-center justify-center gap-3 rounded-sm border border-foreground/25 px-7 py-4 text-xs font-medium uppercase tracking-[0.2em] text-foreground/90 transition-all hover:border-bronze hover:text-bronze-glow">
-                Tour the Aftercare App
+              <Link
+                to={isInvestor ? "/capital" : "/aftercare"}
+                className="group inline-flex items-center justify-center gap-3 rounded-sm border border-foreground/25 px-7 py-4 text-xs font-medium uppercase tracking-[0.2em] text-foreground/90 transition-all hover:border-bronze hover:text-bronze-glow"
+              >
+                {isInvestor ? "Private Capital Desk" : "Tour the Aftercare App"}
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>
