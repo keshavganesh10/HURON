@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Hammer, HeartHandshake, Scale, Wallet } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
+import { useViewerMode } from "@/stores/viewer-mode";
 import heroPavilion from "@/assets/hero-pavilion.jpg";
 
 export const Route = createFileRoute("/")({
