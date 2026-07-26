@@ -115,7 +115,7 @@ function SandboxApp() {
       <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
         <div className="grid items-start gap-16 lg:grid-cols-2">
           <FadeUp>
-            <span className="eyebrow">The Huron App · Sandbox Preview</span>
+            <span className="eyebrow">The Huron App · Interactive Demo — Illustrative Data</span>
             <h2 className="mt-4 font-display text-4xl tracking-tight text-foreground sm:text-5xl">
               Your residence,<br />
               <span className="text-gradient-bronze italic">at your fingertip.</span>
@@ -283,7 +283,7 @@ function DigitalTwin() {
     <section className="relative border-t border-hairline py-24 sm:py-32">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
         <FadeUp className="max-w-3xl">
-          <span className="eyebrow">Agentic AI · Digital Twin</span>
+          <span className="eyebrow">Agentic AI · Digital Twin · Interactive Demo</span>
           <h2 className="mt-4 font-display text-4xl tracking-tight text-foreground sm:text-5xl">
             The residence <span className="text-gradient-bronze italic">that resolves itself.</span>
           </h2>

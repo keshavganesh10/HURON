@@ -54,14 +54,21 @@ function Capital() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
           <div className="grid gap-14 lg:grid-cols-[1.1fr_1fr]">
             <FadeUp>
-              <span className="eyebrow">Bridging Finance Calculator</span>
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="eyebrow">Bridging Finance Calculator</span>
+                <span className="inline-flex items-center gap-2 border border-bronze/40 bg-bronze/10 px-3 py-1 font-mono text-[0.55rem] uppercase tracking-[0.22em] text-bronze-glow">
+                  <span className="h-1.5 w-1.5 rounded-full bg-bronze" />
+                  Interactive Demo — Illustrative Rates
+                </span>
+              </div>
               <h2 className="mt-4 font-display text-4xl tracking-tight text-foreground sm:text-5xl">
                 Leverage what you already own.
               </h2>
               <p className="mt-6 max-w-md text-base font-light leading-relaxed text-foreground/65">
                 Estate, equity, options or trust portfolio — model an indicative
                 facility against your existing assets. A Huron Private Capital
-                Director will refine the terms within one business day.
+                Director will refine the terms within one business day. Numbers
+                below are illustrative and not a formal quotation.
               </p>
               {active && (
                 <div className="mt-6 inline-flex items-center gap-3 border border-bronze/40 bg-bronze/10 px-4 py-2.5">
