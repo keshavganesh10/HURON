@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as InvestorsRouteImport } from './routes/investors'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CapitalRouteImport } from './routes/capital'
 import { Route as AftercareRouteImport } from './routes/aftercare'
 import { Route as IndexRouteImport } from './routes/index'
@@ -25,6 +26,11 @@ const PhilosophyRoute = PhilosophyRouteImport.update({
 const InvestorsRoute = InvestorsRouteImport.update({
   id: '/investors',
   path: '/investors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CapitalRoute = CapitalRouteImport.update({
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/aftercare': typeof AftercareRoute
   '/capital': typeof CapitalRoute
+  '/contact': typeof ContactRoute
   '/investors': typeof InvestorsRoute
   '/philosophy': typeof PhilosophyRoute
   '/residences/$id': typeof ResidencesIdRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/aftercare': typeof AftercareRoute
   '/capital': typeof CapitalRoute
+  '/contact': typeof ContactRoute
   '/investors': typeof InvestorsRoute
   '/philosophy': typeof PhilosophyRoute
   '/residences/$id': typeof ResidencesIdRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/aftercare': typeof AftercareRoute
   '/capital': typeof CapitalRoute
+  '/contact': typeof ContactRoute
   '/investors': typeof InvestorsRoute
   '/philosophy': typeof PhilosophyRoute
   '/residences/$id': typeof ResidencesIdRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/aftercare'
     | '/capital'
+    | '/contact'
     | '/investors'
     | '/philosophy'
     | '/residences/$id'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/aftercare'
     | '/capital'
+    | '/contact'
     | '/investors'
     | '/philosophy'
     | '/residences/$id'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/aftercare'
     | '/capital'
+    | '/contact'
     | '/investors'
     | '/philosophy'
     | '/residences/$id'
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AftercareRoute: typeof AftercareRoute
   CapitalRoute: typeof CapitalRoute
+  ContactRoute: typeof ContactRoute
   InvestorsRoute: typeof InvestorsRoute
   PhilosophyRoute: typeof PhilosophyRoute
   ResidencesIdRoute: typeof ResidencesIdRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/investors'
       fullPath: '/investors'
       preLoaderRoute: typeof InvestorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/capital': {
@@ -179,6 +199,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AftercareRoute: AftercareRoute,
   CapitalRoute: CapitalRoute,
+  ContactRoute: ContactRoute,
   InvestorsRoute: InvestorsRoute,
   PhilosophyRoute: PhilosophyRoute,
   ResidencesIdRoute: ResidencesIdRoute,

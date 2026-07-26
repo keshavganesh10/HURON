@@ -3,6 +3,9 @@ import cheshire2 from "@/assets/residence-cheshire-2.jpg";
 import manchester1 from "@/assets/residence-manchester-1.jpg";
 import manchester2 from "@/assets/residence-manchester-2.jpg";
 import heroPavilion from "@/assets/hero-pavilion.jpg";
+import wilmslow from "@/assets/residence-wilmslow.jpg";
+import worsley from "@/assets/residence-worsley.jpg";
+import castlefield from "@/assets/residence-castlefield.jpg";
 
 export type Region = "cheshire" | "manchester";
 
@@ -112,7 +115,7 @@ export const RESIDENCES: Residence[] = [
       "Floor-to-ceiling curtain wall",
     ],
     images: [manchester1, manchester2],
-    gallery: [manchester1, manchester2, heroPavilion, manchester1],
+    gallery: [manchester1, manchester2, castlefield, heroPavilion],
     specs: [
       { label: "Structural Shell", value: "Post-tensioned concrete core" },
       { label: "Acoustic Envelope", value: "Aerospace-grade dampening · STC 74" },
@@ -153,8 +156,8 @@ export const RESIDENCES: Residence[] = [
       "Endurance conditioning & martial arts studio",
       "Solid-state battery reserve · 96hr autonomy",
     ],
-    images: [cheshire2, cheshire1],
-    gallery: [cheshire2, cheshire1, heroPavilion, cheshire2],
+    images: [wilmslow, cheshire2],
+    gallery: [wilmslow, cheshire2, cheshire1, heroPavilion],
     specs: [
       { label: "Energy Architecture", value: "On-site micro-grid · net-positive annualised" },
       { label: "Envelope R-Value", value: "R-9.2 continuous · quadruple glazing" },
@@ -196,8 +199,8 @@ export const RESIDENCES: Residence[] = [
       "Executive boardroom & home management suite",
       "Bronze-framed thermally broken glazing",
     ],
-    images: [heroPavilion, cheshire1],
-    gallery: [heroPavilion, cheshire1, cheshire2, heroPavilion],
+    images: [worsley, cheshire1],
+    gallery: [worsley, cheshire1, heroPavilion, wilmslow],
     specs: [
       { label: "Solar Architecture", value: "Passive-solar orientation · 62% annual load" },
       { label: "Battery Reserve", value: "Solid-state · 48 hr autonomy" },
@@ -239,8 +242,8 @@ export const RESIDENCES: Residence[] = [
       "Bespoke Italian walnut joinery",
       "Private canal-side terrace",
     ],
-    images: [manchester2, manchester1],
-    gallery: [manchester2, manchester1, heroPavilion, manchester2],
+    images: [castlefield, manchester2],
+    gallery: [castlefield, manchester2, manchester1, worsley],
     specs: [
       { label: "Kitchen Architecture", value: "Gaggenau Vario · fully commissioned" },
       { label: "HVAC", value: "Predictive VRF · 6 zones · ML-tuned" },
