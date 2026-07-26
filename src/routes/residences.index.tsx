@@ -158,11 +158,21 @@ function ResidenceCard({ residence, onQuickView }: { residence: Residence; onQui
           ))}
         </ul>
 
-        <div className="mt-7 inline-flex w-full items-center justify-between gap-3 border border-bronze/40 bg-bronze/10 px-5 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-bronze-glow transition-all group-hover:border-bronze group-hover:bg-bronze/20">
-          Open Full Dossier
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        <div className="mt-7 grid grid-cols-[1fr_auto] gap-2">
+          <div className="inline-flex items-center justify-between gap-3 border border-bronze/40 bg-bronze/10 px-5 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-bronze-glow transition-all group-hover:border-bronze group-hover:bg-bronze/20">
+            Open Full Dossier
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </div>
+          <button
+            type="button"
+            onClick={quick}
+            title="Quick view — includes interactive configurator"
+            className="inline-flex items-center justify-center gap-2 border border-hairline px-4 py-3.5 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-foreground/70 transition-colors hover:border-bronze hover:text-bronze-glow"
+          >
+            <Eye className="h-3.5 w-3.5" /> Quick view
+          </button>
         </div>
       </div>
-    </button>
+    </Link>
   );
 }
