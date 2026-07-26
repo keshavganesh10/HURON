@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Hammer, HeartHandshake, Scale, Wallet } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Calendar, FileSignature, Hammer, HeartHandshake, KeySquare, Scale, ScrollText, Wallet, Wrench } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
 import { useViewerMode } from "@/stores/viewer-mode";
@@ -63,10 +63,15 @@ function HuronLanding() {
                 </motion.h1>
               )}
             </AnimatePresence>
-            <p className="mt-8 max-w-xl text-base font-light leading-relaxed text-foreground/70 sm:text-lg">
+            <p className="mt-6 max-w-xl text-sm font-light text-foreground/85 sm:text-base">
+              {isInvestor
+                ? "In plain English: Huron owns every step a homebuyer normally hires out — design, construction, lending, legal, and lifetime maintenance. Every step also captures its own profit pool, on a single balance sheet."
+                : "In plain English: Huron designs, builds, finances, legally coordinates, and maintains your home for life — all under one contract, one price, one point of contact. No estate agents, no brokers, no subcontractors."}
+            </p>
+            <p className="mt-4 max-w-xl text-sm font-light leading-relaxed text-foreground/60">
               {isInvestor
                 ? "A single balance sheet uniting builder, private lender and lifetime engineer — engineered to capture every discrete profit pool a traditional developer surrenders."
-                : "A vertically integrated ecosystem eliminating the middleman. We are the builder, lender, and lifelong engineer — unified to protect your wealth and restore your time."}
+                : "By owning the full chain, we replace twelve counterparties with one — protecting your time, your privacy and your capital."}
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
