@@ -1,36 +1,33 @@
 import { Link } from "@tanstack/react-router";
-import { KeyRound, ShieldCheck, ScrollText, FileText, Newspaper } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import logoMark from "@/assets/huron-logo.png.asset.json";
 
 const COLUMNS = [
   {
-    icon: ScrollText,
-    title: "Huron Legal Partners",
+    title: "Explore",
     links: [
-      { label: "Conveyancing Panel", to: "/philosophy" },
-      { label: "Independent Counsel Roster", to: "/philosophy" },
-      { label: "Notarial & Trust Services", to: "/philosophy" },
-      { label: "International Estate Coordination", to: "/philosophy" },
+      { label: "The Residence Portfolio", to: "/residences" as const },
+      { label: "The Huron Philosophy", to: "/philosophy" as const },
+      { label: "Huron Private Capital", to: "/capital" as const },
+      { label: "Platinum Aftercare", to: "/aftercare" as const },
     ],
   },
   {
-    icon: FileText,
-    title: "Regulatory Compliance",
+    title: "Speak with Huron",
     links: [
-      { label: "FCA Authorisation No. 947-HRN", to: "/capital" },
-      { label: "AML / KYC Framework", to: "/capital" },
-      { label: "Consumer Duty Statement", to: "/capital" },
-      { label: "Modern Slavery & ESG Charter", to: "/philosophy" },
+      { label: "Contact a Relationship Director", to: "/contact" as const },
+      { label: "Investor Relations", to: "/investors" as const },
+      { label: "Private Viewings by Appointment", to: "/contact" as const },
+      { label: "Press & Media Enquiries", to: "/contact" as const },
     ],
   },
   {
-    icon: Newspaper,
-    title: "Private Press",
+    title: "Legal & Compliance",
     links: [
-      { label: "Financial Times · Profile", to: "/philosophy" },
-      { label: "Country & Town House Annual", to: "/philosophy" },
-      { label: "Press Enquiries — Confidential", to: "/philosophy" },
-      { label: "Client Testimonial Library", to: "/philosophy" },
+      { label: "Privacy Notice", to: "/contact" as const },
+      { label: "Terms of Engagement", to: "/contact" as const },
+      { label: "Cookie Policy", to: "/contact" as const },
+      { label: "Regulatory Disclosures", to: "/contact" as const },
     ],
   },
 ] as const;
@@ -48,22 +45,18 @@ export function Footer() {
               engineering certainty across the entire ownership lifetime.
             </p>
             <Link
-              to="/residences"
+              to="/contact"
               className="mt-8 inline-flex items-center gap-3 border-b border-bronze/40 pb-1 font-mono text-[0.65rem] uppercase tracking-[0.25em] text-bronze-glow transition-colors hover:border-bronze"
             >
-              <KeyRound className="h-3.5 w-3.5" />
-              Client Portal Login
+              Speak with a Relationship Director
             </Link>
           </div>
 
           <div className="grid gap-10 sm:grid-cols-3">
             {COLUMNS.map((col) => (
               <div key={col.title}>
-                <div className="flex items-center gap-2 text-bronze">
-                  <col.icon className="h-3.5 w-3.5" />
-                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.22em]">
-                    {col.title}
-                  </span>
+                <div className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-bronze">
+                  {col.title}
                 </div>
                 <ul className="mt-5 space-y-3">
                   {col.links.map((l) => (
@@ -87,7 +80,7 @@ export function Footer() {
           <div className="hidden h-px bg-hairline shimmer-line sm:block" />
           <span className="sm:text-right">
             <ShieldCheck className="mr-2 inline h-3 w-3 text-bronze" />
-            Authorised & Regulated · Member of the Prime Resident Council
+            Illustrative concept site · Not a regulated financial promotion
           </span>
         </div>
       </div>

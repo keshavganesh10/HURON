@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Hammer, HeartHandshake, Scale, Wallet } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Calendar, FileSignature, Hammer, HeartHandshake, KeySquare, Scale, Wallet, Wrench } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
 import { useViewerMode } from "@/stores/viewer-mode";
@@ -63,10 +63,15 @@ function HuronLanding() {
                 </motion.h1>
               )}
             </AnimatePresence>
-            <p className="mt-8 max-w-xl text-base font-light leading-relaxed text-foreground/70 sm:text-lg">
+            <p className="mt-6 max-w-xl text-sm font-light text-foreground/85 sm:text-base">
+              {isInvestor
+                ? "In plain English: Huron owns every step a homebuyer normally hires out — design, construction, lending, legal, and lifetime maintenance. Every step also captures its own profit pool, on a single balance sheet."
+                : "In plain English: Huron designs, builds, finances, legally coordinates, and maintains your home for life — all under one contract, one price, one point of contact. No estate agents, no brokers, no subcontractors."}
+            </p>
+            <p className="mt-4 max-w-xl text-sm font-light leading-relaxed text-foreground/60">
               {isInvestor
                 ? "A single balance sheet uniting builder, private lender and lifetime engineer — engineered to capture every discrete profit pool a traditional developer surrenders."
-                : "A vertically integrated ecosystem eliminating the middleman. We are the builder, lender, and lifelong engineer — unified to protect your wealth and restore your time."}
+                : "By owning the full chain, we replace twelve counterparties with one — protecting your time, your privacy and your capital."}
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
@@ -150,6 +155,55 @@ function HuronLanding() {
               </Link>
             </FadeUp>
           ))}
+        </div>
+      </section>
+
+      <section className="border-t border-hairline bg-background py-24 sm:py-32">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+          <FadeUp className="max-w-3xl">
+            <span className="eyebrow">How It Works · Buyer Journey</span>
+            <h2 className="mt-4 font-display text-4xl tracking-tight text-foreground sm:text-5xl">
+              From first enquiry to <span className="text-gradient-bronze italic">key in hand.</span>
+            </h2>
+            <p className="mt-6 text-base font-light leading-relaxed text-foreground/70">
+              Five stages, one signature, one point of contact — typically
+              completed in twenty-one days from private viewing to reservation.
+            </p>
+          </FadeUp>
+
+          <Stagger className="mt-14 grid gap-px overflow-hidden border border-hairline bg-hairline lg:grid-cols-5">
+            {[
+              { icon: Calendar, k: "01", t: "Private Enquiry", b: "You contact a Huron Relationship Director. They remain your single point of contact through ownership.", d: "Day 1" },
+              { icon: KeySquare, k: "02", t: "Private Viewing", b: "By appointment, at the residence. No agents, no chain of introducers, no open days.", d: "Week 1" },
+              { icon: Wallet, k: "03", t: "Indicative Terms", b: "Huron Private Capital returns a fixed indicative facility within 48 hours, secured against your existing assets.", d: "Week 1–2" },
+              { icon: FileSignature, k: "04", t: "Reserve & Sign", b: "One contract covers construction, finance, legal and lifetime engineering. Legal panel indemnified at Huron's cost.", d: "Week 2–3" },
+              { icon: Wrench, k: "05", t: "Handover & Aftercare", b: "You receive one key, one app, one named engineer — for the lifetime of your residency and inheritable to your heirs.", d: "Ongoing" },
+            ].map((s) => (
+              <StaggerItem key={s.k} className="bg-background p-6">
+                <div className="flex items-center justify-between">
+                  <s.icon className="h-5 w-5 text-bronze" strokeWidth={1.25} />
+                  <span className="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-foreground/45">{s.d}</span>
+                </div>
+                <div className="mt-6 font-mono text-[0.65rem] uppercase tracking-[0.22em] text-bronze-glow">Step {s.k}</div>
+                <h3 className="mt-2 font-display text-xl text-foreground">{s.t}</h3>
+                <p className="mt-3 text-sm font-light leading-relaxed text-foreground/65">{s.b}</p>
+              </StaggerItem>
+            ))}
+          </Stagger>
+
+          <FadeUp className="mt-12 flex flex-col items-start gap-4 border-t border-hairline pt-8 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-xl text-sm font-light text-foreground/65">
+              Every step above is coordinated by one named person on our side. You never re-explain your situation.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link to="/contact" className="inline-flex items-center gap-2 gradient-bronze px-6 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground shadow-luxe transition-all hover:brightness-110">
+                Begin a Private Enquiry <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+              <Link to="/residences" className="inline-flex items-center gap-2 border border-foreground/25 px-6 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-foreground/85 transition-all hover:border-bronze hover:text-bronze-glow">
+                Browse Residences
+              </Link>
+            </div>
+          </FadeUp>
         </div>
       </section>
     </>

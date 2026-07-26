@@ -12,6 +12,7 @@ const LINKS = [
   { to: "/capital", label: "Private Capital" },
   { to: "/aftercare", label: "Aftercare" },
   { to: "/investors", label: "Investors" },
+  { to: "/contact", label: "Contact" },
 ] as const;
 
 export function TopNav() {
