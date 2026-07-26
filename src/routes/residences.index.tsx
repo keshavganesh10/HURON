@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { ArrowRight, Bath, Bed, ChevronLeft, ChevronRight, MapPin, Maximize2, Sparkle } from "lucide-react";
+import { ArrowRight, Bath, Bed, ChevronLeft, ChevronRight, Eye, MapPin, Maximize2, Sparkle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FadeUp, Stagger, StaggerItem } from "@/components/huron/motion";
 import { RESIDENCES, FILTERS, filterResidences, type FilterKey, type Residence } from "@/lib/huron-data";
@@ -20,9 +20,9 @@ export const Route = createFileRoute("/residences/")({
 
 function Portfolio() {
   const [filter, setFilter] = useState<FilterKey>("all");
-  const [openId, setOpenId] = useState<string | null>(null);
+  const [quickId, setQuickId] = useState<string | null>(null);
   const filtered = useMemo(() => filterResidences(filter), [filter]);
-  const openResidence = openId ? RESIDENCES.find((r) => r.id === openId) ?? null : null;
+  const quickResidence = quickId ? RESIDENCES.find((r) => r.id === quickId) ?? null : null;
 
   return (
     <>
@@ -34,7 +34,7 @@ function Portfolio() {
               Reserved <span className="text-gradient-bronze italic">for the few.</span>
             </h1>
             <p className="mt-6 text-base font-light leading-relaxed text-foreground/65">
-              Every residence below is delivered against a fixed price and a single contract. Specifications, materials and engineering ledgers are transparent, indemnified, and inheritable.
+              Every residence below is delivered against a fixed price and a single contract. Specifications, materials and engineering ledgers are transparent, indemnified, and inheritable. Tap any card to open the full standalone dossier — or use "Quick view" for the interactive configurator.
             </p>
           </FadeUp>
         </div>
@@ -65,31 +65,33 @@ function Portfolio() {
           <Stagger className="grid gap-8 md:grid-cols-2">
             {filtered.map((r) => (
               <StaggerItem key={r.id}>
-                <ResidenceCard residence={r} onOpen={() => setOpenId(r.id)} />
+                <ResidenceCard residence={r} onQuickView={() => setQuickId(r.id)} />
               </StaggerItem>
             ))}
           </Stagger>
         </div>
       </section>
 
-      <PropertyModal residence={openResidence} onClose={() => setOpenId(null)} />
+      <PropertyModal residence={quickResidence} onClose={() => setQuickId(null)} />
     </>
   );
 }
 
-function ResidenceCard({ residence, onOpen }: { residence: Residence; onOpen: () => void }) {
+function ResidenceCard({ residence, onQuickView }: { residence: Residence; onQuickView: () => void }) {
   const [idx, setIdx] = useState(0);
   const total = residence.images.length;
-  const next = (e: React.MouseEvent) => { e.stopPropagation(); setIdx((i) => (i + 1) % total); };
-  const prev = (e: React.MouseEvent) => { e.stopPropagation(); setIdx((i) => (i - 1 + total) % total); };
+  const next = (e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); setIdx((i) => (i + 1) % total); };
+  const prev = (e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); setIdx((i) => (i - 1 + total) % total); };
+  const quick = (e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); onQuickView(); };
 
   const statusTone =
     residence.status === "Final Handover" || residence.status === "Move-In Ready" ? "text-emerald-300/90" :
     residence.status === "Reserved" ? "text-foreground/50" : "text-bronze-glow";
 
   return (
-    <button
-      onClick={onOpen}
+    <Link
+      to="/residences/$id"
+      params={{ id: residence.id }}
       className="group relative block w-full overflow-hidden border border-hairline bg-card text-left transition-colors hover:border-bronze/40"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
