@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Calendar, FileSignature, Hammer, HeartHandshake, KeySquare, Scale, ScrollText, Wallet, Wrench } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Calendar, FileSignature, Hammer, HeartHandshake, KeySquare, Scale, Wallet, Wrench } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
 import { useViewerMode } from "@/stores/viewer-mode";
