@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
 import { DayInTheLife } from "@/components/huron/DayInTheLife";
 import logoIcon from "@/assets/huron-icon.png.asset.json";
-import heroPavilion from "@/assets/hero-pavilion.jpg";
+import heroPavilion from "@/assets/hero-aftercare.jpg";
 
 export const Route = createFileRoute("/aftercare")({
   head: () => ({

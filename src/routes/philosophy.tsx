@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Hammer, Wallet, Scale, HeartHandshake, ShieldCheck, Leaf, Thermometer, Building2 } from "lucide-react";
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
 import { FrictionlessTimeline } from "@/components/huron/FrictionlessTimeline";
-import heroPavilion from "@/assets/hero-pavilion.jpg";
+import heroPavilion from "@/assets/hero-philosophy.jpg";
 
 export const Route = createFileRoute("/philosophy")({
   head: () => ({

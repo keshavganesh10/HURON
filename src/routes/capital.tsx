@@ -4,7 +4,7 @@ import { ArrowRight, Banknote, Clock, Fingerprint, Lock, ShieldCheck } from "luc
 import { FadeUp, ParallaxHero, Stagger, StaggerItem } from "@/components/huron/motion";
 import { CostOfFriction } from "@/components/huron/CostOfFriction";
 import { useActiveProperty } from "@/stores/active-property";
-import heroPavilion from "@/assets/hero-pavilion.jpg";
+import heroPavilion from "@/assets/hero-capital.jpg";
 
 export const Route = createFileRoute("/capital")({
   head: () => ({

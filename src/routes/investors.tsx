@@ -145,14 +145,14 @@ function InvestorContent() {
             </p>
             <div className="mt-10 grid max-w-3xl grid-cols-2 gap-6 border-t border-hairline pt-8 sm:grid-cols-4">
               {[
-                { k: "Projected Gross Margin", v: "41%" },
-                { k: "Aftercare ARR (FY29)", v: "£4.1M" },
-                { k: "Book on Balance Sheet", v: "£210M" },
-                { k: "Loss Given Default", v: "6%" },
-              ].map((s) => (
-                <div key={s.k}>
+                { k: <>Projected Gross <Term tip="Gross Margin — revenue minus the direct cost of building & delivering the residence, before overhead and financing.">Margin</Term></>, v: "41%" },
+                { k: <><Term tip="Aftercare ARR — Annual Recurring Revenue from subscription aftercare contracts across all delivered residences by fiscal year 2029.">Aftercare ARR</Term> (FY29)</>, v: "£4.1M" },
+                { k: <><Term tip="The private lending book held on Huron's own balance sheet — i.e. loans we underwrite and fund ourselves rather than syndicate.">Book on Balance Sheet</Term></>, v: "£210M" },
+                { k: <><Term tip="LGD — Loss Given Default. The percentage of a loan Huron expects to lose if the borrower defaults, after recovering the underlying asset.">Loss Given Default</Term></>, v: "6%" },
+              ].map((s, i) => (
+                <div key={i}>
                   <div className="font-display text-2xl text-bronze-glow">{s.v}</div>
-                  <div className="mt-1 font-mono text-[0.55rem] uppercase tracking-[0.22em] text-foreground/55">
+                  <div className="mt-2 font-mono text-[0.55rem] uppercase tracking-[0.22em] text-foreground/55">
                     {s.k}
                   </div>
                 </div>
